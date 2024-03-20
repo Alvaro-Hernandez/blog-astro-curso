@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const allPosts = await Astro.glob("../posts/*.md");
+const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+const pageTitle = "Índice de etiquetas";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="flex flex-wrap">
+    {
+      tags.map((tag) => (
+        <p class="m-1 border-dotted border border-gray-300 rounded-md p-2 text-lg bg-gray-700">
+          <a
+            class="text-white hover:text-orange-300 capitalize"
+            href={`/tags/${tag}`}
+          >
+            {tag}
+          </a>
+        </p>
+      ))
+    }
+  </div>
+</BaseLayout>
